@@ -22,7 +22,7 @@ CREATE TABLE Address (
     UpdatedAt DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
 
     CONSTRAINT FK_Address_Person FOREIGN KEY (PersonId) REFERENCES Person(Id),
-    CONSTRAINT CHK_Address_Type CHECK (Type IN ('Permanent', 'Temporary')),
+    CONSTRAINT CHK_Address_Type CHECK (Type IN ('PERMANENT', 'TEMPORARY')),
     CONSTRAINT UQ_PersonId_Type UNIQUE (PersonId, Type)
 );
 
