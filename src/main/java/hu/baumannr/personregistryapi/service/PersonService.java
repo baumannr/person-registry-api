@@ -24,7 +24,7 @@ public interface PersonService {
      *
      * @return list of all persons
      */
-    List<PersonResponse> getAllPerson();
+    List<PersonResponse> getAllPersons();
 
     /**
      * Creates a new person using the provided request data.
