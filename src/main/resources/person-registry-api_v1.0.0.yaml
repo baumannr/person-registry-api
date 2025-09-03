@@ -1,0 +1,432 @@
+openapi: 3.0.3
+info:
+  title: Person Registry API
+  version: 1.0.0
+
+servers:
+  - url: /api
+
+paths:
+  /persons:
+    get:
+      tags: [Person]
+      summary: Get all persons
+      operationId: getAllPersons
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonResponse'
+        '4xx':
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '5xx':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags: [Person]
+      summary: Create a new person
+      operationId: createPerson
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonCreateRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonResponse'
+        '4xx':
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '5xx':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /persons/{personId}:
+    get:
+      tags: [Person]
+      summary: Get person by ID
+      operationId: getPersonById
+      parameters:
+        - $ref: '#/components/parameters/PersonId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags: [Person]
+      summary: Update person
+      operationId: updatePerson
+      parameters:
+        - $ref: '#/components/parameters/PersonId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonUpdateRequest'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonResponse'
+        '4xx':
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '5xx':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags: [Person]
+      summary: Delete person
+      operationId: deletePerson
+      parameters:
+        - $ref: '#/components/parameters/PersonId'
+      responses:
+        '204':
+          description: Deleted
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /persons/{personId}/addresses:
+    get:
+      tags: [Address]
+      summary: Get addresses for a person
+      operationId: getAddressesForPerson
+      parameters:
+        - $ref: '#/components/parameters/PersonId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AddressResponse'
+    post:
+      tags: [Address]
+      summary: Add address to a person
+      operationId: addAddressToPerson
+      parameters:
+        - $ref: '#/components/parameters/PersonId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressCreateRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressResponse'
+
+  /persons/{personId}/addresses/{addressId}:
+    put:
+      tags: [Address]
+      summary: Update address
+      operationId: updateAddress
+      parameters:
+        - $ref: '#/components/parameters/PersonId'
+        - $ref: '#/components/parameters/AddressId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressUpdateRequest'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressResponse'
+    delete:
+      tags: [Address]
+      summary: Delete address
+      operationId: deleteAddress
+      parameters:
+        - $ref: '#/components/parameters/PersonId'
+        - $ref: '#/components/parameters/AddressId'
+      responses:
+        '204':
+          description: Deleted
+
+  /persons/{personId}/contactInfos:
+    get:
+      tags: [ContactInfo]
+      summary: Get contact infos for a person
+      operationId: getContactInfosForPerson
+      parameters:
+        - $ref: '#/components/parameters/PersonId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContactInfoResponse'
+    post:
+      tags: [ContactInfo]
+      summary: Add contact info
+      operationId: addContactInfo
+      parameters:
+        - $ref: '#/components/parameters/PersonId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactInfoCreateRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactInfoResponse'
+
+  /persons/{personId}/contactInfos/{contactInfoId}:
+    put:
+      tags: [ContactInfo]
+      summary: Update contact info
+      operationId: updateContactInfo
+      parameters:
+        - $ref: '#/components/parameters/PersonId'
+        - $ref: '#/components/parameters/ContactInfoId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactInfoUpdateRequest'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactInfoResponse'
+    delete:
+      tags: [ContactInfo]
+      summary: Delete contact info
+      operationId: deleteContactInfo
+      parameters:
+        - $ref: '#/components/parameters/PersonId'
+        - $ref: '#/components/parameters/ContactInfoId'
+      responses:
+        '204':
+          description: Deleted
+
+components:
+  parameters:
+    PersonId:
+      name: personId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+    AddressId:
+      name: addressId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+    ContactInfoId:
+      name: contactInfoId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  schemas:
+    PersonCreateRequest:
+      type: object
+      required: [firstName, lastName]
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+
+    PersonUpdateRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+
+    PersonResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        firstName:
+          type: string
+        lastName:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        modifiedAt:
+          type: string
+          format: date-time
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressResponse'
+        contactInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactInfoResponse'
+
+    AddressCreateRequest:
+      type: object
+      required: [type, country, city, zip, street]
+      properties:
+        type:
+          type: string
+          enum: [Permanent, Temporary]
+        country:
+          type: string
+        city:
+          type: string
+        zip:
+          type: string
+        street:
+          type: string
+
+    AddressUpdateRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [Permanent, Temporary]
+        country:
+          type: string
+        city:
+          type: string
+        zip:
+          type: string
+        street:
+          type: string
+
+    AddressResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        type:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        zip:
+          type: string
+        street:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    ContactInfoCreateRequest:
+      type: object
+      required: [type, value]
+      properties:
+        type:
+          type: string
+          enum: [email, phone, linkedin]
+        value:
+          type: string
+          maxLength: 254
+
+    ContactInfoUpdateRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [email, phone, linkedin]
+        value:
+          type: string
+          maxLength: 254
+
+    ContactInfoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        type:
+          type: string
+        value:
+          type: string
+
+    ErrorResponse:
+      type: object
+      required: [timestamp, error, message]
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        error:
+          type: string
+        message:
+          type: string
