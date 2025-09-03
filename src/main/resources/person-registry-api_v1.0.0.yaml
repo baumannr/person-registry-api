@@ -149,7 +149,7 @@ paths:
     post:
       tags: [Address]
       summary: Add address to a person
-      operationId: addAddressToPerson
+      operationId: addAddress
       parameters:
         - $ref: '#/components/parameters/PersonId'
       requestBody:
