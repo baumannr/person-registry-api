@@ -2,6 +2,8 @@ package hu.baumannr.personregistryapi.persistence.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,8 +40,9 @@ public class ContactInfo implements Serializable {
     @Column(name = "Id", nullable = false)
     private Long id;
 
-    @Column(name = "Type", nullable = false, length = 10)
-    private String type;
+    @Column(name = "Type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ContactInfoType type;
 
     @Column(name = "Country", nullable = false, length = 100)
     private String country;

@@ -35,5 +35,5 @@ CREATE TABLE ContactInfo (
     UpdatedAt DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
 
 	CONSTRAINT FK_ContactInfo_Person FOREIGN KEY (PersonId) REFERENCES Person(Id),
-	CONSTRAINT CHK_ContactInfo_Type CHECK (Type IN ('email', 'phone', 'linkedin'))
+	CONSTRAINT CHK_ContactInfo_Type CHECK (Type IN ('EMAIL', 'PHONE', 'LINKEDIN'))
 );
