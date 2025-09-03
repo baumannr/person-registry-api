@@ -1,0 +1,59 @@
+package hu.baumannr.personregistryapi.persistence.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+/**
+ * Contact info entity.
+ */
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "ContactInfo")
+public class ContactInfo implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -619235190449078747L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contact_info_gen")
+    @SequenceGenerator(name = "contact_info_gen", sequenceName = "ContactInfoSeq")
+    @Column(name = "Id", nullable = false)
+    private Long id;
+
+    @Column(name = "Type", nullable = false, length = 10)
+    private String type;
+
+    @Column(name = "Country", nullable = false, length = 100)
+    private String country;
+
+    @Column(name = "City", nullable = false, length = 100)
+    private String city;
+
+    @Column(name = "Zip", nullable = false)
+    private String zip;
+
+    @Column(name = "Street", nullable = false, length = 200)
+    private String street;
+
+    @Column(name = "CreatedAt", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "UpdatedAt", nullable = false)
+    private LocalDateTime updatedAt;
+}
