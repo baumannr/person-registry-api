@@ -38,19 +38,19 @@ public class Address implements Serializable {
     @Column(name = "Id", nullable = false)
     private Long id;
 
-    @Column(name = "type", nullable = false, length = 10)
+    @Column(name = "Type", nullable = false, length = 10)
     private String type;
 
-    @Column(name = "country", nullable = false)
+    @Column(name = "Country", nullable = false)
     private String country;
 
     @Column(name = "City", nullable = false)
     private String city;
 
-    @Column(name = "zip", nullable = false)
+    @Column(name = "Zip", nullable = false)
     private String zip;
 
-    @Column(name = "street", nullable = false)
+    @Column(name = "Street", nullable = false)
     private String street;
 
     @Column(name = "CreatedAt", nullable = false)
