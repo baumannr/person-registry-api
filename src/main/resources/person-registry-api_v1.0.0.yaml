@@ -321,7 +321,7 @@ components:
         createdAt:
           type: string
           format: date-time
-        modifiedAt:
+        updatedAt:
           type: string
           format: date-time
         addresses:
@@ -415,6 +415,12 @@ components:
           type: string
         value:
           type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
 
     ErrorResponse:
       type: object

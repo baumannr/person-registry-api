@@ -21,8 +21,6 @@ public interface AddressMapper {
      * @param address the Address entity to convert
      * @return the AddressResponse DTO
      */
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
     AddressResponse convert(Address address);
 
     /**

@@ -23,8 +23,6 @@ public interface PersonMapper {
      */
     @Mapping(target = "addresses", ignore = true)
     @Mapping(target = "contactInfos", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "modifiedAt", ignore = true)
     PersonResponse convert(Person person);
 
     /**
@@ -37,7 +35,7 @@ public interface PersonMapper {
     @Mapping(target = "addresses", ignore = true)
     @Mapping(target = "contactInfos", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "modifiedAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     Person convert(PersonCreateRequest request);
 
     /**
@@ -49,7 +47,7 @@ public interface PersonMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "addresses", ignore = true)
     @Mapping(target = "contactInfos", ignore = true)
-    @Mapping(target = "modifiedAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     void updatePerson(@MappingTarget Person person, PersonUpdateRequest request);
 }
