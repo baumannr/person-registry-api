@@ -71,6 +71,7 @@ class PersonServiceImplTest {
         Long personId = 17L;
         Optional<Person> personOptional = Optional.empty();
         LocalDateTime now = mock(LocalDateTime.class);
+        String message = "Person with id " + personId + " not found";
 
         when(personRepository.findById(any())).thenReturn(personOptional);
 
@@ -83,7 +84,7 @@ class PersonServiceImplTest {
 
             // Assert
             assertEquals(HttpStatus.NOT_FOUND, personApiException.getStatusCode());
-            assertEquals("Person not found!", personApiException.getMessage());
+            assertEquals(message, personApiException.getMessage());
             assertEquals(now, personApiException.getTimestamp());
 
             InOrder inOrder = inOrder(personRepository, personMapper);
@@ -178,6 +179,7 @@ class PersonServiceImplTest {
         PersonUpdateRequest request = mock(PersonUpdateRequest.class);
         Optional<Person> personOptional = Optional.empty();
         LocalDateTime now = mock(LocalDateTime.class);
+        String message = "Person with id " + personId + " not found";
 
         when(personRepository.findById(any())).thenReturn(personOptional);
 
@@ -190,7 +192,7 @@ class PersonServiceImplTest {
 
             // Assert
             assertEquals(HttpStatus.NOT_FOUND, personApiException.getStatusCode());
-            assertEquals("Person not found!", personApiException.getMessage());
+            assertEquals(message, personApiException.getMessage());
             assertEquals(now, personApiException.getTimestamp());
 
             InOrder inOrder = inOrder(personRepository, personMapper);

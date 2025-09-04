@@ -1,5 +1,6 @@
 package hu.baumannr.personregistryapi.service;
 
+import hu.baumannr.personregistryapi.constant.ErrorMessages;
 import hu.baumannr.personregistryapi.exception.PersonApiException;
 import hu.baumannr.personregistryapi.mapper.PersonMapper;
 import hu.baumannr.personregistryapi.persistence.model.Person;
@@ -57,6 +58,7 @@ public class PersonServiceImpl implements PersonService {
 
     private Person getPerson(Long personId) {
         return personRepository.findById(personId)
-                .orElseThrow(() -> new PersonApiException(HttpStatus.NOT_FOUND, "Person not found!"));
+                .orElseThrow(() -> new PersonApiException(HttpStatus.NOT_FOUND,
+                        String.format(ErrorMessages.PERSON_NOT_FOUND, personId)));
     }
 }
