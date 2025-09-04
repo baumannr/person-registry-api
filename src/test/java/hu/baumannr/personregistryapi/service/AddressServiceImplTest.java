@@ -133,19 +133,45 @@ class AddressServiceImplTest {
     }
 
     @Test
+    void addAddress_WhenPersonNotFound_ThenThrowsException() {
+        // Arrange
+        long personId = 13L;
+        AddressCreateRequest request = mock(AddressCreateRequest.class);
+        String message = "Person with id " + personId + " not found";
+        LocalDateTime now = LocalDateTime.now();
+
+        try (MockedStatic<LocalDateTime> mockedTime = Mockito.mockStatic(LocalDateTime.class)) {
+            mockedTime.when(LocalDateTime::now).thenReturn(now);
+
+            // Act
+            PersonApiException exception = assertThrows(PersonApiException.class,
+                    () -> addressService.addAddress(personId,request));
+
+            // Assert
+            assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+            assertEquals(message, exception.getMessage());
+            assertEquals(now, exception.getTimestamp());
+        }
+    }
+
+    @Test
     void addAddress_WhenAddressTypeAlreadyExists_ThenThrowsException() {
         // Arrange
         Long personId = 13L;
         Person person = mock(Person.class);
         Address address = mock(Address.class);
+        AddressType addressType = AddressType.PERMANENT;
         AddressCreateRequest request = mock(AddressCreateRequest.class);
+        AddressCreateRequest.TypeEnum type = AddressCreateRequest.TypeEnum.PERMANENT;
         LocalDateTime now = LocalDateTime.now();
+        String message = "Address with type " + type + " already exists for person " + personId;
 
         when(personRepository.findById(any())).thenReturn(Optional.of(person));
+        when(person.getId()).thenReturn(personId);
         when(person.getAddresses()).thenReturn(List.of(address));
-        when(address.getType()).thenReturn(AddressType.PERMANENT);
-        when(addressTypeMapper.convert(any())).thenReturn(AddressType.PERMANENT);
-        when(request.getType()).thenReturn(AddressCreateRequest.TypeEnum.PERMANENT);
+        when(address.getType()).thenReturn(addressType);
+        when(addressTypeMapper.convert(any())).thenReturn(addressType);
+        when(request.getType()).thenReturn(type);
 
         try (MockedStatic<LocalDateTime> mockedTime = Mockito.mockStatic(LocalDateTime.class)) {
             mockedTime.when(LocalDateTime::now).thenReturn(now);
@@ -156,6 +182,7 @@ class AddressServiceImplTest {
 
             // Assert
             assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+            assertEquals(message, exception.getMessage());
             assertEquals(now, exception.getTimestamp());
         }
     }
@@ -192,6 +219,29 @@ class AddressServiceImplTest {
     }
 
     @Test
+    void updateAddress_WhenAddressNotFound_ThenThrowsException() {
+        // Arrange
+        long personId = 13L;
+        long addressId = 17L;
+        AddressUpdateRequest request = mock(AddressUpdateRequest.class);
+        String message = "Address with id " + addressId + " not found";
+        LocalDateTime now = LocalDateTime.now();
+
+        try (MockedStatic<LocalDateTime> mockedTime = Mockito.mockStatic(LocalDateTime.class)) {
+            mockedTime.when(LocalDateTime::now).thenReturn(now);
+
+            // Act
+            PersonApiException exception = assertThrows(PersonApiException.class,
+                    () -> addressService.updateAddress(personId, addressId, request));
+
+            // Assert
+            assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+            assertEquals(message, exception.getMessage());
+            assertEquals(now, exception.getTimestamp());
+        }
+    }
+
+    @Test
     void updateAddress_WhenAddressDoesNotBelongToPerson_ThenThrowsException() {
         // Arrange
         Long otherPersonId = 51L;
@@ -201,7 +251,9 @@ class AddressServiceImplTest {
         Address address = mock(Address.class);
         AddressUpdateRequest request = mock(AddressUpdateRequest.class);
         LocalDateTime now = LocalDateTime.now();
+        String message = "Address with id " + addressId + " does not belong to person " + otherPersonId;
 
+        when(address.getId()).thenReturn(addressId);
         when(address.getPerson()).thenReturn(person);
         when(person.getId()).thenReturn(personId);
         when(addressRepository.findById(any())).thenReturn(Optional.of(address));
@@ -212,7 +264,9 @@ class AddressServiceImplTest {
             PersonApiException exception = assertThrows(PersonApiException.class,
                     () -> addressService.updateAddress(otherPersonId, addressId, request));
 
+
             assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+            assertEquals(message, exception.getMessage());
             assertEquals(now, exception.getTimestamp());
         }
     }
