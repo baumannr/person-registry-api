@@ -44,17 +44,8 @@ public class ContactInfo implements Serializable {
     @Enumerated(EnumType.STRING)
     private ContactInfoType type;
 
-    @Column(name = "Country", nullable = false, length = 100)
-    private String country;
-
-    @Column(name = "City", nullable = false, length = 100)
-    private String city;
-
-    @Column(name = "Zip", nullable = false)
-    private String zip;
-
-    @Column(name = "Street", nullable = false, length = 200)
-    private String street;
+    @Column(name = "ContactValue", nullable = false, length = 100)
+    private String value;
 
     @Column(name = "CreatedAt", nullable = false)
     private LocalDateTime createdAt;
