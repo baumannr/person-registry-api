@@ -21,8 +21,6 @@ public interface PersonMapper {
      * @param person the Person entity to convert
      * @return the PersonResponse DTO
      */
-    @Mapping(target = "addresses", ignore = true)
-    @Mapping(target = "contactInfos", ignore = true)
     PersonResponse convert(Person person);
 
     /**
