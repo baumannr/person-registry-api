@@ -56,4 +56,14 @@ public class Person implements Serializable {
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ContactInfo> contactInfos;
+
+    /**
+     * Adds the given Address to the Person.
+     *
+     * @param address the address
+     */
+    public void addAddress(Address address) {
+        addresses.add(address);
+        address.setPerson(this);
+    }
 }
