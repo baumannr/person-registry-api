@@ -3,7 +3,6 @@ package hu.baumannr.personregistryapi.exception;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
