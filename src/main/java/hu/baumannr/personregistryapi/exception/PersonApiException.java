@@ -2,6 +2,7 @@ package hu.baumannr.personregistryapi.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 
 import java.io.Serial;
@@ -19,7 +20,7 @@ public class PersonApiException extends RuntimeException {
 
     private final LocalDateTime timestamp = LocalDateTime.now();
 
-    private final HttpStatusCode statusCode;
+    private final HttpStatus statusCode;
 
     private final String message;
 
