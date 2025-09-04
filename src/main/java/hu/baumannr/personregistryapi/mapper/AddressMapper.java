@@ -26,7 +26,7 @@ public interface AddressMapper {
     AddressResponse convert(Address address);
 
     /**
-     * Converts the given AddressCreateRequest DTO into a Address entity.
+     * Converts the given AddressCreateRequest DTO into an Address entity.
      *
      * @param request the AddressCreateRequest DTO to convert
      * @return the Address entity
@@ -40,8 +40,8 @@ public interface AddressMapper {
     /**
      * Updates the given Address with the AddressUpdateRequest DTO.
      *
-     * @param address the Person to update
-     * @param request the PersonUpdateRequest with the new data for Person
+     * @param address the Address to update
+     * @param request the AddressUpdateRequest with the new data for Address
      */
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "type", ignore = true)

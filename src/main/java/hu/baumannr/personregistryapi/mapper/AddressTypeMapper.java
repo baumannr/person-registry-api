@@ -5,6 +5,9 @@ import hu.baumannr.personregistryapi.rest.model.AddressCreateRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 
+/**
+ * Mapper methods for address type.
+ */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AddressTypeMapper {
 
