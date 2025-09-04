@@ -26,7 +26,7 @@ public interface AddressService {
      * @param request the data for the new address
      * @return the created address
      */
-    AddressResponse addAddressToPerson(Long personId, AddressCreateRequest request);
+    AddressResponse addAddress(Long personId, AddressCreateRequest request);
 
     /**
      * Updates the address identified by the given ID with the provided data.
