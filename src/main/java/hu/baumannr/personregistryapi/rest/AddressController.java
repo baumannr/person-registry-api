@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.net.URI;
 import java.util.List;
 
+/**
+ * REST controller for managing addresses.
+ */
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
