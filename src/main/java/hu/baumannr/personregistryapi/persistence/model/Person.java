@@ -66,4 +66,14 @@ public class Person implements Serializable {
         addresses.add(address);
         address.setPerson(this);
     }
+
+    /**
+     * Adds the given ContactInfo to the Person.
+     *
+     * @param contactInfo the address
+     */
+    public void addContactInfo(ContactInfo contactInfo) {
+        contactInfos.add(contactInfo);
+        contactInfo.setPerson(this);
+    }
 }
