@@ -41,6 +41,7 @@ public interface PersonMapper {
     Person convert(PersonCreateRequest request);
 
     /**
+     * Updates the given Person with the PersonUpdateRequest DTO.
      *
      * @param person the Person to update
      * @param request the PersonUpdateRequest with the new data for Person
