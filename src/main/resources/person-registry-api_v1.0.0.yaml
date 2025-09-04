@@ -352,9 +352,6 @@ components:
     AddressUpdateRequest:
       type: object
       properties:
-        type:
-          type: string
-          enum: [Permanent, Temporary]
         country:
           type: string
         city:
