@@ -9,7 +9,9 @@ Spring Boot REST API for managing persons, addresses, and contact information
 
 ## Running the Application
 
-To run the application:
+Before running the application, make sure to set the environment variables ([Database Configuration](#database-configuration))
+
+To run:
 
 ```shell
 ./mvnw spring-boot:run
@@ -39,7 +41,7 @@ The coverage report will be generated in: `target/site/jacoco`
 
 You can configure the database connection with the following environment variables.
 
-| Environment variable | Description         | Default value                                                               |
+| Environment variable | Description         | Example                                                                     |
 |----------------------|---------------------|-----------------------------------------------------------------------------|
 | DATASOURCE_URL       | JDBC connection URL | jdbc:sqlserver://localhost:1433;databaseName=PersonRegistryDB;encrypt=false |
 | DATASOURCE_USERNAME  | Database username   | prdb                                                                        |
