@@ -2,6 +2,37 @@
 
 Spring Boot REST API for managing persons, addresses, and contact information
 
+## Requirements
+
+- Java 17+
+- Microsoft SQL Server 2017
+
+## Running the Application
+
+To run the application:
+
+```shell
+./mvnw spring-boot:run
+````
+
+## API Documentation
+
+This project provides an OpenAPI specification for the REST API.
+
+The OpenAPI file is located at: `src/main/resources/person-registry-api_v1.0.0.yaml`
+
+## Testing
+
+To run unit tests:
+
+```shell
+./mvnw clean test
+```
+
+This project uses JaCoCo to measure test coverage.
+
+The coverage report will be generated in: `target/site/jacoco`
+
 ## Database
 
 ### Database configuration
@@ -17,23 +48,24 @@ You can configure the database connection with the following environment variabl
 ### Database migration
 
 This project uses Flyway for database migrations.
-Flyway automatically applies SQL script on application startup to create and update the schema.
 
 Flyway scripts are located under `src/main/resources/db/migration`
 
-### Setup MS SQL 2017 database with Docker image
+### Setup MS SQL 2017 Server with Docker image
 
 Source: [Quickstart: Run SQL Server Linux container images with Docker](https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-2017&tabs=cli&pivots=cs1-bash)
 
-For setting up an MS SQL 2017 database for the application for testing purpose, follow the following steps:
+Requirement: [Docker Engine](https://docs.docker.com/engine/install/) or [Dorcker Desktop](https://docs.docker.com/desktop/)
 
-1. Pull image
+For setting up an MS SQL 2017 Server for the application for testing purpose, follow the following steps:
+
+1. Pull image:
 
 ```shell
 docker pull mcr.microsoft.com/mssql/server:2017-latest
 ```
 
-2. Run image in the background
+2. Run image in the background:
 
 ```shell
 docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=saPassword123_" \
@@ -42,19 +74,19 @@ docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=saPassword123_" \
    mcr.microsoft.com/mssql/server:2017-latest
 ```
 
-3. Connect to container
+3. Connect to container:
 
 ```shell
 docker exec -it personregistrydb "bash"
 ```
 
-4. Connect to the database inside the container as system admin
+4. Connect to the database inside the container as system admin:
 
 ```shell
 /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "saPassword123_"
 ```
 
-5. Execute the following SQL commands to create database, user and to set role
+5. Execute the following SQL commands to create database, user and to set role:
 
 ```shell
 CREATE DATABASE PersonRegistryDB;
