@@ -38,7 +38,7 @@ public class Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_gen")
-    @SequenceGenerator(name = "person_gen", sequenceName = "PersonSeq")
+    @SequenceGenerator(name = "person_gen", sequenceName = "PersonSeq", allocationSize = 1)
     @Column(name = "Id", nullable = false)
     private Long id;
 

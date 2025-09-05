@@ -38,7 +38,7 @@ public class ContactInfo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contact_info_gen")
-    @SequenceGenerator(name = "contact_info_gen", sequenceName = "ContactInfoSeq")
+    @SequenceGenerator(name = "contact_info_gen", sequenceName = "ContactInfoSeq", allocationSize = 1)
     @Column(name = "Id", nullable = false)
     private Long id;
 
