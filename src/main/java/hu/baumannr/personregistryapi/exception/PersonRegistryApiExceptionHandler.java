@@ -6,9 +6,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.time.LocalDateTime;
@@ -61,6 +64,51 @@ public class PersonRegistryApiExceptionHandler {
                 .message(exception.getMessage());
 
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
+                .body(response);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(
+            MethodArgumentTypeMismatchException exception) {
+        String message = "Type of " + exception.getName() + " is invalid";
+        log.debug("Parameter type mismatch: {}", message);
+
+        ErrorResponse response = new ErrorResponse()
+                .timestamp(LocalDateTime.now())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .message(message);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(response);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(
+            HttpMessageNotReadableException exception) {
+        log.debug("Invalid request body", exception);
+
+        ErrorResponse response = new ErrorResponse()
+                .timestamp(LocalDateTime.now())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .message("Invalid request body");
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(
+            MethodArgumentNotValidException exception) {
+        log.debug("Invalid request body", exception);
+
+        ErrorResponse response = new ErrorResponse()
+                .timestamp(LocalDateTime.now())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .message("Invalid request body");
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .body(response);
     }
 
