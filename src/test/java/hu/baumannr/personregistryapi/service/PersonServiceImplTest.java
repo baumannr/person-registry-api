@@ -4,6 +4,7 @@ import hu.baumannr.personregistryapi.exception.PersonApiException;
 import hu.baumannr.personregistryapi.mapper.PersonMapper;
 import hu.baumannr.personregistryapi.persistence.model.Person;
 import hu.baumannr.personregistryapi.persistence.repository.PersonRepository;
+import hu.baumannr.personregistryapi.rest.model.PersonCreateRequest;
 import hu.baumannr.personregistryapi.rest.model.PersonResponse;
 import hu.baumannr.personregistryapi.rest.model.PersonUpdateRequest;
 import org.junit.jupiter.api.Test;
@@ -124,23 +125,25 @@ class PersonServiceImplTest {
     @Test
     void createPerson_HappyPath() {
         // Arrange
-        Long personId = 17L;
+        PersonCreateRequest request = mock(PersonCreateRequest.class);
         Person person = mock(Person.class);
-        Optional<Person> personOptional = Optional.of(person);
+        Person savedPerson = mock(Person.class);
         PersonResponse expected = mock(PersonResponse.class);
 
-        when(personRepository.findById(any())).thenReturn(personOptional);
+        when(personMapper.convert(any(PersonCreateRequest.class))).thenReturn(person);
+        when(personRepository.save(any(Person.class))).thenReturn(savedPerson);
         when(personMapper.convert(any(Person.class))).thenReturn(expected);
 
         // Act
-        PersonResponse actual = personService.getPersonById(personId);
+        PersonResponse actual = personService.createPerson(request);
 
         // Assert
         assertEquals(actual, expected);
 
         InOrder inOrder = inOrder(personRepository, personMapper);
-        inOrder.verify(personRepository).findById(personId);
-        inOrder.verify(personMapper).convert(person);
+        inOrder.verify(personMapper).convert(request);
+        inOrder.verify(personRepository).save(person);
+        inOrder.verify(personMapper).convert(savedPerson);
         inOrder.verifyNoMoreInteractions();
     }
 
